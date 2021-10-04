@@ -2,7 +2,7 @@
 
 In some scenarios you may need to map a csv which may have variable columns. This project exemplifies how to perform this mapping dynamically on a HashMap.
 
-###How to Use
+### How to Use
 
 To use it, just copy the two classes below to your spring batch project. The third link shows an example of the solution's configuration.
 
