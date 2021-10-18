@@ -77,10 +77,6 @@ public class CsvItemReaderBuilder<T> {
 
 	private LineCallbackHandler skippedLinesCallback;
 
-	private Map<Class<?>, PropertyEditor> customEditors = new HashMap<>();
-
-	private BigInteger tokenizerValidator = new BigInteger("0");
-
 	private boolean saveState = true;
 
 	private String name;
@@ -263,7 +259,9 @@ public class CsvItemReaderBuilder<T> {
 	private String[] generateFromCsv(Resource resource) {
 		try (Stream<String> content = Files.lines(resource.getFile().toPath())){
 			String[] headers = content.findFirst()
-					.stream().map(lineMapper -> lineMapper.split(this.delimiter))
+					.stream()
+					.map(lineMapper -> lineMapper.replaceAll("\"", ""))
+					.map(lineMapper -> lineMapper.split(this.delimiter))
 					.findFirst().orElseThrow(() -> new IllegalStateException("The CSV is empty!"));
 			return headers;
 		} catch (IOException e) {
